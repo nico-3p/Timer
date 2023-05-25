@@ -45,7 +45,7 @@
 
     <script src="./push.min.js" charset="utf-8"></script>
     <script type="text/javascript">
-      Push.create('タイマーを開始します');
+      Push.create('タイマー開始');
       const titleElement = document.getElementsByTagName('title')[0];
       const timeElement = document.getElementById('time');
       const textElement = document.getElementById('text');
@@ -90,8 +90,8 @@
       setInterval(countTime, 1000);
 
       const alarm = () => {
-        let text = '休憩してください';
-        if (flag == '休憩') text = '休憩終了です';
+        let text = '休憩';
+        if (flag == '休憩') text = '休憩終了';
 
         Push.create(text);
 
