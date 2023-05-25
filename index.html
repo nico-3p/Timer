@@ -90,8 +90,8 @@
       setInterval(countTime, 1000);
 
       const alarm = () => {
-        let text = 'お疲れ様です。休憩してください。';
-        if (flag == '休憩') text = '休憩終了です。頑張りましょう。';
+        let text = '休憩してください';
+        if (flag == '休憩') text = '休憩終了です';
 
         Push.create(text);
 
