@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>集中タイマー</title>
+    <style media="screen">
+      body, div, p {
+        margin: 0;
+      }
+
+      .center {
+        width: 100vw;
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+      .center div {
+        margin: auto;
+      }
+
+      .syutyu {
+        color: #2196F3;
+      }
+      .kyukei {
+        color: #FF9800;
+      }
+
+      #text {
+        font-size: 80px;
+      }
+      #time {
+        line-height: 200px;
+        font-size: 260px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center">
+      <div>
+        <p id="text" class="syutyu">集中</p>
+        <p id="time">00:00</p>
+      </div>
+    </div>
+
+    <script src="./push.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      Push.create('お帰りなさい');
+      const titleElement = document.getElementsByTagName('title')[0];
+      const timeElement = document.getElementById('time');
+      const textElement = document.getElementById('text');
+
+      let flag = '集中';
+
+      let times = prompt('集中:休憩の時間を入力してください。', '25 5');
+
+      let syutyuTime = times.split(' ')[0] * 60;
+      let kyukeiTime = times.split(' ')[1] * 60;
+
+      let counter = syutyuTime;
+
+      const countTime = () => {
+        counter--;
+
+        if (counter <= 0) {
+          alarm();
+          if (flag == '集中') {
+            flag = '休憩';
+            counter = kyukeiTime;
+
+            textElement.classList.remove('syutyu');
+            textElement.classList.add('kyukei');
+          }
+          else {
+            flag = '集中';
+            counter = syutyuTime;
+
+            textElement.classList.remove('kyukei');
+            textElement.classList.add('syutyu');
+          }
+          textElement.textContent = flag;
+        }
+
+        let mm = Math.floor(counter / 60);
+        let ss = counter % 60;
+
+        timeElement.innerText = zeroPadding(mm, 2) + ':' + zeroPadding(ss, 2);
+        titleElement.innerText = '集中タイマー [' + flag + ' 残り' + mm + '分]';
+      };
+      setInterval(countTime, 1000);
+
+      const alarm = () => {
+        let text = 'お疲れ様です。休憩してください。';
+        if (flag == '休憩') text = '休憩終了です。頑張りましょう。';
+
+        Push.create(text);
+
+        ringSound(); // 通知音を鳴らす
+      };
+
+      // 通知音を鳴らす
+      const ringSound = () => {
+        const audio = document.createElement('audio');
+        audio.src = './通知音.mp3';
+
+        audio.play();
+      };
+
+      const zeroPadding = (NUM, LEN) => {
+      	return ( Array(LEN).join('0') + NUM ).slice( -LEN );
+      };
+    </script>
+  </body>
+</html>
