@@ -95,7 +95,7 @@
 
         Push.create(text);
 
-        ringSound(); // 通知音を鳴らす
+        // ringSound(); // 通知音を鳴らす
       };
 
       // 通知音を鳴らす
@@ -104,6 +104,8 @@
         audio.src = './通知音.mp3';
 
         audio.play();
+        
+        delete audio;
       };
 
       const zeroPadding = (NUM, LEN) => {
