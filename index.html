@@ -85,7 +85,7 @@
         let ss = counter % 60;
 
         timeElement.innerText = zeroPadding(mm, 2) + ':' + zeroPadding(ss, 2);
-        titleElement.innerText = '[' + flag + ' 残り' + mm + '分]';
+        titleElement.innerText = flag + ' 残り' + mm + ':' + ss;
       };
       setInterval(countTime, 1000);
 
