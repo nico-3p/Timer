@@ -84,8 +84,9 @@
         let mm = Math.floor(counter / 60);
         let ss = counter % 60;
 
-        timeElement.innerText = zeroPadding(mm, 2) + ':' + zeroPadding(ss, 2);
-        titleElement.innerText = flag + ' [' + mm + ':' + ss + ']';
+        let timeStr = zeroPadding(mm, 2) + ':' + zeroPadding(ss, 2);
+        timeElement.innerText = timeStr;
+        titleElement.innerText = flag + ' [' + timeStr + ']';
       };
       setInterval(countTime, 1000);
 
